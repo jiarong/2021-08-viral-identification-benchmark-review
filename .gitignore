@@ -4,6 +4,7 @@
 .Ruserdata
 core*
 *.swp
+plasmid/*
 !plasmid/dramv-annotation.tsv
 !plasmid/manual-check-fp-dramv-annotation.tsv
 !plasmid/obvious-viral-uniq.list
