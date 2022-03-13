@@ -5,7 +5,7 @@ Jiarong Guo
 # Motivation
 
 There is a recent
-[preprint](https://www.biorxiv.org/content/10.1101/2021.04.12.438782v1)
+[preprint](https://www.biorxiv.org/content/10.1101/2021.04.12.438782v1), "Comprehensive benchmarking of tools to identify phages in metagenomic shotgun sequencing data",
 on benchmark of 10 common viral identification tools, which shows
 gene-based tools including VirSorter2 have poor performance (\< 0.8
 accuracy) in simulated data from Refseq genomes (Fig.1). This is,
@@ -169,7 +169,7 @@ We can see the benchmark stats are consistent with results in preprint.
 
 It’s known that gene based tools are not good at short contigs with
 length \<5kb, since at least a few genes are required for such tools to
-get features such as gene density and strand switch frequency needed fo
+get features such as gene density and strand switch frequency needed for
 prediction. The benchmark in the preprint set the length cutoff at 1kb,
 which puts gene based tools at disadvantage. Since they pick random
 fragments between 1kb and 15kb, we can expect about 1/3 of the contigs
@@ -308,7 +308,7 @@ checkV viral_gene vs. host_gene
 We can see the plasmids and hosts has many viral genes. The viral genes
 defined in checkV are conservative, so they are fairly reliable viral
 signals. To confirm the above, I search for three very obvious viral
-hallmark genes, terminase, tail and capsid using the DRAMv annotations:
+hallmark genes, **terminase**, **tail** and **capsid** using the DRAMv annotations:
 
 ``` bash
 # get contigs with score >= 0.93 and length >=1000
@@ -508,7 +508,7 @@ Now we can see the F1 score is close to **0.9**. Since the score cutoff
 of 0.93 for VirSorter2 is pretty stringent, I do not expect recall to be
 high. In the preprint, AUC under recall-precision curve was used to find
 an optimal cutoff of 0.93 using the flawed dataset. The optimal cutoff
-should be lower than 0.93 so recall would increase at cost of precision
+should be lower than 0.93 so recall would increase at the cost of a precision
 decrease. The optimal cutoff, however, is very data dependent, on
 factors such as viral vs. nonviral contig ratio and proportion of
 unknown sequences, so the effort to find a “golden” cutoff is likely to
@@ -613,7 +613,7 @@ F1
 </table>
 
 As we can see, SOP has perfect recall but low precision on uncorrected
-data. With correcting the viral contamination, we can expect better
+data. After correcting the viral contamination in host and plasmid contigs, we can expect better
 precision. To correct, we can first look at those with obvious viral
 hallmark genes such **terminase, capsid, tail**:
 
@@ -750,7 +750,7 @@ F1
 
 As shown above, the VirSorter2 SOP achieved F1 score of 0.94, better
 than that (0.90) of using a strict score cutoff of 0.93. This is very
-good performance considering the inbalanced data (very low proportion of
+good performance considering the highly inbalanced data (very low proportion of
 viral contigs).
 
 ## How much viral contaminants are there in refseq complete plasmid sequences?
@@ -847,7 +847,7 @@ Now we revisit the origianl Q of why gene based tools perform poorly in
 this benchmark:
 
 -   The main reason is that the contamination of viral sequences in the
-    plasmid and host sequences is significantly skew the performance
+    plasmid and host sequences significantly skew the performance
     stats, especially for plasmid. It’s expected that some provirus in
     host genomes are likely not removed by provirus prediction tools,
     but the number of viral contaminants in the plasmids reference
